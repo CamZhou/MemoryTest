@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Score</key>
+	<integer>0</integer>
+	<key>Result</key>
+	<array/>
+	<key>Subject</key>
+	<integer>0</integer>
+	<key>Start_Time</key>
+	<date>2016-02-02T23:08:54Z</date>
+	<key>Current_Problem</key>
+	<integer>0</integer>
+</dict>
+</plist>
