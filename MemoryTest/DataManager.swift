@@ -15,7 +15,35 @@ class DataManager: NSObject {
     override init() {
         super.init()
         
-        path = NSBundle.mainBundle().pathForResource(Constant.PLIST_NAME, ofType: "plist")!
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
+        let documentsDirectory = paths[0] as! NSString
+        path = documentsDirectory.stringByAppendingPathComponent(Constant.PLIST_NAME + ".plist")
+        
+        let fileManager = NSFileManager.defaultManager()
+        
+        //check if file exists
+        if(!fileManager.fileExistsAtPath(path)) {
+            // If it doesn't, copy it from the default file in the Bundle
+            if let bundlePath = NSBundle.mainBundle().pathForResource(Constant.PLIST_NAME, ofType: "plist") {
+                
+                let resultDictionary = NSMutableDictionary(contentsOfFile: bundlePath)
+                print("Bundle Result.plist file is --> \(resultDictionary?.description)")
+                do {
+                    try fileManager.copyItemAtPath(bundlePath, toPath: path)
+                } catch {
+                    
+                }
+                print("copy")
+            } else {
+                print("GameData.plist not found. Please, make sure it is part of the bundle.")
+            }
+        } else {
+            print("GameData.plist already exits at path.")
+            // use this to delete file from documents directory
+            //fileManager.removeItemAtPath(path, error: nil)
+        }
+
+        // path = NSBundle.mainBundle().pathForResource(Constant.PLIST_NAME, ofType: "plist")!
         dict = NSMutableDictionary(contentsOfFile: path)!
     }
     
@@ -28,7 +56,9 @@ class DataManager: NSObject {
         print("ready to save")
         print(dict)
         print(NSDictionary(contentsOfFile: path)!)
-        dict.writeToFile(path, atomically: false)
+        if dict.writeToFile(path, atomically: false) {
+            print("SAVED")
+        }
         print(NSDictionary(contentsOfFile: path)!)
     }
     
@@ -41,7 +71,7 @@ class DataManager: NSObject {
     }
     
     func prepareForStart() {
-        storeValue(Constant.START_TIME, obj: NSDate(timeIntervalSinceNow: 0.0))
+        storeValue(Constant.CORRELATION, obj: Array<NSNumber>())
         storeValue(Constant.START_TIME, obj: NSDate(timeIntervalSinceNow: 0.0))
     }
     

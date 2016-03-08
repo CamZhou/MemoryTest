@@ -104,6 +104,10 @@ class AnswerViewController: UIViewController, UITextViewDelegate{
     }
 
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        touched()
+    }
+    
+    func touched() {
         self.view.endEditing(true)
     }
     

@@ -20,17 +20,21 @@ class QuestionViewController: UIViewController {
     
     var question = [Int]()
     
+    var didStart = Bool()
+    
     override func viewDidLoad() {
         setup()
         displayQuestion()
     }
     
     private func setup() {
-        
+        didStart = false
         answerButton.hidden = true
         let timer = NSTimer(timeInterval: NSTimeInterval(Constant.WAIT_TIME), target: self, selector: "answer", userInfo: nil, repeats: false)
         NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
         setupProgressBar()
+        let tap = UITapGestureRecognizer(target: self, action: Selector("handleTap:"))
+        self.questionView.addGestureRecognizer(tap)
     }
     
     private func setupProgressBar() {
@@ -40,13 +44,31 @@ class QuestionViewController: UIViewController {
     private func displayQuestion() {
         switch dataManager.getCurrentType() {
         case 0:
-            questionView.text = "Try to remember as many numbers in sequence as possible:\n\n" + generateNumberString()
+            questionView.text = "Try to remember as many numbers in sequence as possible in " + String(Constant.WAIT_TIME) + " seconds:\n\nTouch to begin."
             questionView.font = UIFont.systemFontOfSize(40)
             break
         case 1:
             break
         default:
             break
+        }
+    }
+    
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        touched()
+    }
+    
+    func handleTap(sender: UITapGestureRecognizer) {
+        if sender.state == .Ended {
+            touched()
+        }
+    }
+    
+    func touched() {
+        if (!didStart) {
+            didStart = true
+            questionView.text = "Start memorizing: \n\n" + generateNumberString()
+            questionView.font = UIFont.systemFontOfSize(60)
         }
     }
     

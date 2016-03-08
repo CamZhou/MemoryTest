@@ -22,6 +22,9 @@ class ServerManager: NSObject {
         memoResult[Constant.START_TIME] = dataManager.getStartTime()
         memoResult[Constant.CORRELATION] = dataManager.getCorrelation().description
         memoResult[Constant.SCORE] = dataManager.getScore()
+        memoResult["Number_of_Questions"] = Constant.NUM_OF_QUESTIONS
+        memoResult["Wait_Time"] = Constant.WAIT_TIME
+        memoResult["Number_of_Digits"] = Constant.NUM_OF_DIGITS
         memoResult.saveInBackground();
     }
 

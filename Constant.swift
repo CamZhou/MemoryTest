@@ -19,5 +19,5 @@ class Constant: NSObject {
     static let NUM_OF_QUESTIONS = 5
     static let NUM_OF_QUESTION_TYPES = 1
     static let NUM_OF_DIGITS = 30
-    static let WAIT_TIME = 20.0
+    static let WAIT_TIME = 10.0
 }
