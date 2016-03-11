@@ -30,8 +30,6 @@ class QuestionViewController: UIViewController {
     private func setup() {
         didStart = false
         answerButton.hidden = true
-        let timer = NSTimer(timeInterval: NSTimeInterval(Constant.WAIT_TIME), target: self, selector: "answer", userInfo: nil, repeats: false)
-        NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
         setupProgressBar()
         let tap = UITapGestureRecognizer(target: self, action: Selector("handleTap:"))
         self.questionView.addGestureRecognizer(tap)
@@ -69,6 +67,8 @@ class QuestionViewController: UIViewController {
             didStart = true
             questionView.text = "Start memorizing: \n\n" + generateNumberString()
             questionView.font = UIFont.systemFontOfSize(60)
+            let timer = NSTimer(timeInterval: NSTimeInterval(Constant.WAIT_TIME), target: self, selector: "answer", userInfo: nil, repeats: false)
+            NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
         }
     }
     
