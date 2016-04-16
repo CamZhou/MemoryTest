@@ -100,7 +100,7 @@ class DataManager: NSObject {
     }
     
     func randomDigit() -> Int {
-        return Int(arc4random()) % 10
+        return Int(rand()) % 10
     }
     
     func getCurrentType() -> Int {
